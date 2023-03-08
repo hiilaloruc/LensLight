@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import conn from "./db.js";
 import pageRoute from "./routes/pageRoute.js";
+import photoRoute from "./routes/photoRoute.js";
 //Nodejs Web application consists of a "request and response" loop...
 
 dotenv.config();
@@ -19,6 +20,7 @@ app.use(express.static("public"));
 
 //routes the urls
 app.use("/", pageRoute);
+app.use("/photos", photoRoute);
 
 app.listen(port, () => {
   console.log(`app listening on port : ${port}`);
