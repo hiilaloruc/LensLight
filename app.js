@@ -17,6 +17,7 @@ app.set("view engine", "ejs");
 
 //static files middleware(arayazılım)
 app.use(express.static("public"));
+app.use(express.json()); //gönderilen post isteklerinin req body'de ayrılıp okunabilmesi için.
 
 //routes the urls
 app.use("/", pageRoute);
