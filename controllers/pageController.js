@@ -9,5 +9,10 @@ const getAboutPage = (req, res) => {
     link: "about",
   }); //renders the file according to url
 };
+const getRegisterPage = (req, res) => {
+  res.render("register", {
+    link: "register",
+  }); //renders the file according to url
+};
 
-export { getIndexPage, getAboutPage };
+export { getIndexPage, getAboutPage, getRegisterPage };
