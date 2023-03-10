@@ -14,5 +14,10 @@ const getRegisterPage = (req, res) => {
     link: "register",
   }); //renders the file according to url
 };
+const getLoginPage = (req, res) => {
+  res.render("login", {
+    link: "login",
+  }); //renders the file according to url
+};
 
-export { getIndexPage, getAboutPage, getRegisterPage };
+export { getIndexPage, getAboutPage, getRegisterPage, getLoginPage };
