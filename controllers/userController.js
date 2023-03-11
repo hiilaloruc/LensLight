@@ -1,5 +1,6 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 //create new photoBox object
 
 const createUser = async (req, res) => {
@@ -39,7 +40,11 @@ const loginUser = async (req, res) => {
 
     if (same) {
       //successfully logged in
-      res.status(200).send("You have successfully logged in!");
+      //res.status(200).send("You have successfully logged in!");
+      res.status(200).json({
+        user,
+        token: createToken(user._id),
+      });
     } else {
       //wrong password
       res.status(401).json({
@@ -55,4 +60,9 @@ const loginUser = async (req, res) => {
   }
 };
 
+const createToken = (userId) => {
+  return jwt.sign({ userId }, process.env.JWT_SECRET, {
+    expiresIn: "1d",
+  });
+};
 export { createUser, loginUser };
