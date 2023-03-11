@@ -41,10 +41,16 @@ const loginUser = async (req, res) => {
     if (same) {
       //successfully logged in
       //res.status(200).send("You have successfully logged in!");
-      res.status(200).json({
+      /*res.status(200).json({
         user,
         token: createToken(user._id),
+      });*/
+      const token = createToken(user._id);
+      res.cookie("jwt", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24, // a day
       });
+      res.redirect("/users/dashboard");
     } else {
       //wrong password
       res.status(401).json({
@@ -65,4 +71,11 @@ const createToken = (userId) => {
     expiresIn: "1d",
   });
 };
-export { createUser, loginUser };
+
+const getDashboardPage = (req, res) => {
+  res.render("dashboard", {
+    link: "dashboard",
+  });
+};
+
+export { createUser, loginUser, getDashboardPage };

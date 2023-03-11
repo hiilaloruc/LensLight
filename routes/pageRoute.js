@@ -4,9 +4,7 @@ import * as authMiddleware from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router
-  .route("/")
-  .get(authMiddleware.authenticateToken, PageController.getIndexPage);
+router.route("/").get(PageController.getIndexPage);
 router.route("/about").get(PageController.getAboutPage);
 router.route("/register").get(PageController.getRegisterPage);
 router.route("/login").get(PageController.getLoginPage);
