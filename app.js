@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import pageRoute from "./routes/pageRoute.js";
 import photoRoute from "./routes/photoRoute.js";
 import userRoute from "./routes/userRoute.js";
-
+import { checkUser } from "./middlewares/authMiddleware.js";
 //Nodejs Web application consists of a "request and response" loop...
 
 dotenv.config();
@@ -25,6 +25,7 @@ app.use(express.urlencoded({ extended: true })); //To read the data from the for
 app.use(cookieParser());
 
 //routes the urls
+app.get("*", checkUser); //in all get methods call checkUser function
 app.use("/", pageRoute);
 app.use("/photos", photoRoute);
 app.use("/users", userRoute);
