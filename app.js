@@ -24,8 +24,8 @@ app.use(express.json()); //post requests can be separated and read in the req bo
 app.use(express.urlencoded({ extended: true })); //To read the data from the form
 app.use(cookieParser());
 
-//routes the urls
-app.get("*", checkUser); //in all get methods call checkUser function
+//routes the urls : use(in both post and get requests)
+app.use("*", checkUser); //in all get methods call checkUser function
 app.use("/", pageRoute);
 app.use("/photos", photoRoute);
 app.use("/users", userRoute);
