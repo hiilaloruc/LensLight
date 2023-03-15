@@ -22,6 +22,6 @@ router
   .put(authMiddleware.authenticateToken, userController.follow);
 router
   .route("/:id/unfollow")
-  .put(authMiddleware.authenticateToken, userController.follow);
+  .put(authMiddleware.authenticateToken, userController.unfollow);
 
 export default router;

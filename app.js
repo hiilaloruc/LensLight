@@ -1,7 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import conn from "./db.js";
+import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
+
 import pageRoute from "./routes/pageRoute.js";
 import photoRoute from "./routes/photoRoute.js";
 import userRoute from "./routes/userRoute.js";
@@ -33,6 +35,11 @@ app.use(express.json()); //post requests can be separated and read in the req bo
 app.use(express.urlencoded({ extended: true })); //To read the data from the form
 app.use(cookieParser());
 app.use(fileUpload({ useTempFiles: true })); //when the file is uploading, it creates a temporary file
+app.use(
+  methodOverride("_method", {
+    methods: ["POST", "GET"],
+  })
+);
 
 //routes the urls : use(in both post and get requests)
 app.use("*", checkUser); //in all get methods call checkUser function
