@@ -9,4 +9,12 @@ router.route("/login").post(userController.loginUser); //triggers -> POST reques
 router
   .route("/dashboard")
   .get(authMiddleware.authenticateToken, userController.getDashboardPage);
+
+router
+  .route("/")
+  .get(authMiddleware.authenticateToken, userController.getAllUsers);
+router
+  .route("/:id")
+  .get(authMiddleware.authenticateToken, userController.getAUser);
+
 export default router;
