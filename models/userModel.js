@@ -27,6 +27,18 @@ const userSchema = new Schema(
       required: [true, "Password should be provided."],
       minLength: [4, "Minimum password length is 4."],
     },
+    followers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    followings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     timestamps: true, //mongodb automatically adds createdAt and updatedAt

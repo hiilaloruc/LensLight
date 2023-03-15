@@ -81,6 +81,10 @@ const createToken = (userId) => {
 
 const getDashboardPage = async (req, res) => {
   const photos = await Photo.find({ user: res.locals.user._id });
+  const user = await User.findById({ _id: req.res.locals.user._id }).populate([
+    "followers",
+    "followings",
+  ]);
   res.render("dashboard", {
     link: "dashboard",
     photos,
@@ -118,4 +122,72 @@ const getAUser = async (req, res) => {
     });
   }
 };
-export { createUser, loginUser, getDashboardPage, getAllUsers, getAUser };
+const follow = async (req, res) => {
+  try {
+    //update the one who I followed
+    let user = await User.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: { followers: res.locals.user._id },
+      },
+      { new: true } // return new version of user obj
+    );
+    user = await User.findByIdAndUpdate(
+      //update my own following info as well
+      { _id: es.locals.user._id },
+      {
+        $push: { followings: req.params.id },
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      succeeded: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      succeeded: false,
+      error,
+    });
+  }
+};
+
+const unfollow = async (req, res) => {
+  try {
+    //update the one who I followed
+    let user = await User.findByIdAndUpdate(
+      { _id: req.params.id },
+      {
+        $pull: { followers: res.locals.user._id },
+      },
+      { new: true } // return new version of user obj
+    );
+    user = await User.findByIdAndUpdate(
+      //update my own following info as well
+      { _id: es.locals.user._id },
+      {
+        $pull: { followings: req.params.id },
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      succeeded: true,
+      user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      succeeded: false,
+      error,
+    });
+  }
+};
+
+export {
+  createUser,
+  loginUser,
+  getDashboardPage,
+  getAllUsers,
+  getAUser,
+  follow,
+  unfollow,
+};
