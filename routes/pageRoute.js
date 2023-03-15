@@ -9,5 +9,7 @@ router.route("/about").get(PageController.getAboutPage);
 router.route("/register").get(PageController.getRegisterPage);
 router.route("/login").get(PageController.getLoginPage);
 router.route("/logout").get(PageController.getLogout);
+router.route("/contact").get(PageController.getContact);
+router.route("/contact").post(PageController.sendMail);
 
 export default router;
