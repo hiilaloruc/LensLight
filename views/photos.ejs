@@ -31,7 +31,7 @@
                                  <div class="view_main">
                                  <div class="pose">
                                  <a class="read_more" href="/photos/<%= photo._id %>"><img src="images/ga.png" alt="#"/></a>
-                                 <p><b style="text-transform: uppercase;color:black;"><%=photo.name %></b><br> <%= photo.description %> </p>
+                                 <p><b style="text-transform: uppercase;color:black;"><%=photo.name %></b><br> <%= photo.description.substring(0, 80) + "..." %> </p>
                                  </div>
                                  </div>
                               </div>
